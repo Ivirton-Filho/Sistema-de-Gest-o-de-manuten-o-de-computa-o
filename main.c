@@ -41,3 +41,54 @@ typedef struct {
     char problema[TAM];
     char progresso[TAM]
 } conserto;
+
+void cadastro() {
+    if (total > MAX) {
+        printf("Limite de consertos atingindo!\n");
+        return;
+    }
+    else {
+        printf("--- CADASTRO DE CLIENTE ---");
+        printf("Digite o nome do cliente: ");
+        getchar();
+        fgets(consertos[total].cliente, TAM, stdin);
+        consertos[total].cliente[strcspn(consertos[total].cliente, "\n")] = 0;
+
+        printf("Equipamento: ");
+        fgets(consertos[total].equipamento, TAM, stdin);
+        consertos[total].equipamento[strcspn(consertos[total].equipamento, "\n")] = 0;
+
+        printf("Problema do equipamento: ");
+        fgets(consertos[total].problema, TAM, stdin);
+        consertos[total].problema[strcspn(consertos[total].problema, "\n")] = 0;
+
+        strcpy(consertos[total].progresso, "Em análise");
+        total++;
+        salvar_arq();
+    }
+}
+
+void status_conserto() {
+    int opcao;
+    if (total == 0){
+        printf("Nenhum equipamento cadastrado.\n");
+        return;
+    }
+    printf("Digite o número do conserto que deseja atualizar: ");
+    if (scanf("%d", &escolha) != 1 || escolha < 1 || escolha > total) {
+        printf("Opção inválida!\n");
+        while (getchar() != '\n'); 
+        return;
+    }
+    escolha--;
+    printf("Atualização do status de conserto: ");
+    getchar(); 
+    fgets(consertos[escolha].progresso, TAM, stdin);
+    consertos[escolha].progresso[strcspn(consertos[escolha].progresso, "\n")] = 0;
+
+    salvarArquivo();
+    printf("Status atualizado com sucesso!\n");
+}
+
+    
+}
