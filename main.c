@@ -133,11 +133,22 @@ void estoque (){
         scanf("%d", &lista_de_equipamentos[i].quantidade);
         }
     }
-    
-    
 }
 
+
+void salvar_aqr_pecas() {
+    FILE *arq = fopen("consertos.txt", "a");
+    for (int i; i < qnt_pecas; i++) {
+        fprintf(arq,"--- ESTOQUE DE PEÇAS ---\n");
+        fprintf(arq, "ID: %d\n", lista_de_equipamentos[i].id);
+        fprintf(arq, "Nome: %s\n", lista_de_equipamentos[i].nome);
+        fprintf(arq, "Quantidade: %d\n", lista_de_equipamentos[i].quantidade);
+        fprintf(arq, "-----------------------\n");
+    }
+ }
+
+
 int main (void){
-    estoque();
+    
 return 0;
 }
