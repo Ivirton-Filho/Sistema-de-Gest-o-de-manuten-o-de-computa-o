@@ -12,12 +12,12 @@ typedef struct {
 } conserto;
 
 //variaveis globais
-int total = 0;
+int total = 0; // número total de itens cadastrados 
 conserto  consertos[MAX];
-int qnt_pecas = 0; //armazena a quantidade de peças que o user deseja cadastrar
-char var_auxiliador_escolha_continuar[2]; //variavel auxiliar para verificar se o usuário quer continuar
-int var_auxiliador_loop_menu = 1;
-int var_auxiliador_menu;
+int qnt_pecas = 0; //armazena a quantidade de peças que o user deseja cadastrar.
+char var_auxiliador_escolha_continuar[2]; //variável auxiliar para verificar se o usuário quer continuar.
+int var_auxiliador_loop_menu = 1;// variável auxiliar do loop while do menu.
+int var_auxiliador_menu; // variável auxiliar para navegar entre as funções do programa.
 
 //struct para pecas
 struct pecas{
@@ -89,6 +89,7 @@ void cadastro() {
 
 void status_conserto() {
     int escolha;
+    // verifica se tem algum equipamento cadastro 
     if (total == 0){
         printf("Nenhum equipamento cadastrado.\n");
         return;
@@ -137,7 +138,7 @@ void estoque (){
     }
 }
 
-
+//salva as peças no fim do arq uma por uma usando o laço for.
 void salvar_aqr_pecas() {
     FILE *arq = fopen("consertos.txt", "a");
     for (int i; i < qnt_pecas; i++) {
@@ -151,8 +152,11 @@ void salvar_aqr_pecas() {
 
 
 int main (void){
-    printf("Aplicativo de gestão da oficina iniciado!");
-    printf("--- TECNICO CLEITINHO ---\n\n");
+    printf("Aplicativo de gestão da oficina iniciado!\n");
+    printf("#####################################");
+    printf("--- TECNICO CLEITINHO ---");
+    printf("#####################################\n\n");
+
 
     while(var_auxiliador_loop_menu == 1){
         printf("1-Acessar área de cadastro\n2-Status de concerto\n3-Estoque de peças\n4-Registro\n5-Sair\nSelecione uma opção: ");
@@ -176,10 +180,10 @@ int main (void){
                 arquivo();
                 continue;
 
-            case 5:
+            case 5: //caso o user queria sair deverar digitar "S" que será guardado em uma var auxiliar.
                 printf("Certeza que deseja sair?(S/N)\n");
                 scanf("%s", &var_auxiliador_escolha_continuar);
-
+                //Se a var for "S" OU "s" a variavel do loop while recebe 0 parando o loop.
                 if (strcmp(var_auxiliador_escolha_continuar, "S") == 0 || strcmp(var_auxiliador_escolha_continuar, "s") == 0){
                     var_auxiliador_loop_menu = 0;
                     break;
