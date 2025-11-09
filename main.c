@@ -11,9 +11,22 @@ typedef struct {
     char progresso[TAM];
 } conserto;
 
-
+//variaveis globais
 int total = 0;
 conserto  consertos[MAX];
+int qnt_pecas = 0; //armazena a quantidade de peças que o user deseja cadastrar
+char var_auxiliador_pecas[TAM]; //variavel auxiliar para verificar se ja existe peças cadastradas
+
+//struct para pecas
+struct pecas{
+    int id;
+    char nome[TAM];
+    int quantidade;
+};
+
+//array para peças
+struct pecas lista_de_equipamentos[MAX];
+
 
 void arquivo() {
     FILE *arq = fopen("consertos.txt", "r");
@@ -24,7 +37,7 @@ void arquivo() {
     consertos[total].cliente, 
     consertos[total].equipamento,
     consertos[total].problema, 
-    consertos[total].progresso) <= MAX); {
+    consertos[total].progresso) <= MAX) {
     total++;
     }
     fclose(arq);
@@ -47,7 +60,7 @@ void salvar_arq() {
 
 
 void cadastro() {
-    if (total > MAX) {
+    if (total >= MAX) {
         printf("Limite de consertos atingindo!\n");
         return;
     }
@@ -95,7 +108,36 @@ void status_conserto() {
 }
 
 
-int main (void){
+void estoque (){
+    printf("--- ESTOQUE DE PEÇAS ---\n");
+    //verifica se ja existe peças cadastradas e imprime elas na tela do user
+    if(var_auxiliador_pecas[0] != NULL){
+      printf("Peças cadastradas no estoque:\n");
+        for(int i = 0; i < qnt_pecas; i++){
+            printf("ID: %d\n", lista_de_equipamentos[i].id);
+            printf("Nome: %s\n", lista_de_equipamentos[i].nome);
+            printf("Quantidade: %d\n", lista_de_equipamentos[i].quantidade);
+            printf("-----------------------\n");
+        }
+    //add peças ao estoque caso não tenha peças cadastradas 
+    }else{
+       printf("Nenhuma peça cadastrada no estoque.\n");
+       printf("Quantas peças deseja adicionar? Infome o número de 1 a 10: ");
+        scanf("%d", &qnt_pecas);
 
+        for (int i = 0; i < qnt_pecas; i++){
+        lista_de_equipamentos[i].id = i + 1;
+        printf("Nome da peca %d: ", i + 1);
+        scanf("%s", lista_de_equipamentos[i].nome);
+        printf("\nQuantidade da peça %d: ", i + 1);
+        scanf("%d", &lista_de_equipamentos[i].quantidade);
+        }
+    }
+    
+    
+}
+
+int main (void){
+    estoque();
 return 0;
 }
