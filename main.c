@@ -15,7 +15,9 @@ typedef struct {
 int total = 0;
 conserto  consertos[MAX];
 int qnt_pecas = 0; //armazena a quantidade de peças que o user deseja cadastrar
-char var_auxiliador_pecas[TAM]; //variavel auxiliar para verificar se ja existe peças cadastradas
+char var_auxiliador_escolha_continuar[2]; //variavel auxiliar para verificar se o usuário quer continuar
+int var_auxiliador_loop_menu = 1;
+int var_auxiliador_menu;
 
 //struct para pecas
 struct pecas{
@@ -111,7 +113,7 @@ void status_conserto() {
 void estoque (){
     printf("--- ESTOQUE DE PEÇAS ---\n");
     //verifica se ja existe peças cadastradas e imprime elas na tela do user
-    if(var_auxiliador_pecas[0] != NULL){
+    if(lista_de_equipamentos[0].id != NULL){
       printf("Peças cadastradas no estoque:\n");
         for(int i = 0; i < qnt_pecas; i++){
             printf("ID: %d\n", lista_de_equipamentos[i].id);
@@ -149,6 +151,46 @@ void salvar_aqr_pecas() {
 
 
 int main (void){
+    printf("Aplicativo de gestão da oficina iniciado!");
+    printf("--- TECNICO CLEITINHO ---\n\n");
+
+    while(var_auxiliador_loop_menu == 1){
+        printf("1-Acessar área de cadastro\n2-Status de concerto\n3-Estoque de peças\n4-Registro\n5-Sair\nSelecione uma opção: ");
+        scanf("%d", &var_auxiliador_menu);
+
+        switch (var_auxiliador_menu){
+            case 1:
+                cadastro();
+                continue;
+
+            case 2:
+                status_conserto();
+                continue;
+
+            case 3: 
+                estoque();
+                salvar_aqr_pecas();
+                continue;
+
+            case 4:
+                arquivo();
+                continue;
+
+            case 5:
+                printf("Certeza que deseja sair?(S/N)\n");
+                scanf("%s", &var_auxiliador_escolha_continuar);
+
+                if (strcmp(var_auxiliador_escolha_continuar, "S") == 0 || strcmp(var_auxiliador_escolha_continuar, "s") == 0){
+                    var_auxiliador_loop_menu = 0;
+                    break;
+                }
+    
+            default:
+                printf("Digite uma opção valida\n");
+                continue;
+        }
+
+    }
     
 return 0;
 }
