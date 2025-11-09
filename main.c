@@ -3,20 +3,29 @@
 
 #define MAX 10
 #define TAM 50
+
+typedef struct {
+    char cliente[TAM];
+    char equipamento[TAM];
+    char problema[TAM];
+    char progresso[TAM];
+} conserto;
+
+
 int total = 0;
-conserto consertos[MAX]
+conserto  consertos[MAX];
 
 void arquivo() {
     FILE *arq = fopen("consertos.txt", "r");
     if (arq == NULL) {
-        return 1;
+        return ;
     }
     while (fscanf(arq, "%s %s %s %s", 
     consertos[total].cliente, 
     consertos[total].equipamento,
     consertos[total].problema, 
-    consertos[total].progresso) <= MAX) {
-    total++
+    consertos[total].progresso) <= MAX); {
+    total++;
     }
     fclose(arq);
 }
@@ -24,9 +33,9 @@ void arquivo() {
 void salvar_arq() {
     FILE *arq = fopen("consertos.txt", "w");
     if (arq == NULL) {
-        return 1;
+        return ;
     }
-    for(int 1 = 0; i < total; i++){
+    for(int i = 0; i < total; i++){
         fprintf(arq, "%s, %s, %s, %s", 
             consertos[i].cliente,
             consertos[i].equipamento,
@@ -35,12 +44,7 @@ void salvar_arq() {
     }
     fclose(arq);
 }
-typedef struct {
-    char cliente[TAM];
-    char equipamento[TAM];
-    char problema[TAM];
-    char progresso[TAM]
-} conserto;
+
 
 void cadastro() {
     if (total > MAX) {
@@ -69,7 +73,7 @@ void cadastro() {
 }
 
 void status_conserto() {
-    int opcao;
+    int escolha;
     if (total == 0){
         printf("Nenhum equipamento cadastrado.\n");
         return;
@@ -86,9 +90,12 @@ void status_conserto() {
     fgets(consertos[escolha].progresso, TAM, stdin);
     consertos[escolha].progresso[strcspn(consertos[escolha].progresso, "\n")] = 0;
 
-    salvarArquivo();
+    salvar_arq();
     printf("Status atualizado com sucesso!\n");
 }
 
-    
+
+int main (void){
+
+return 0;
 }
