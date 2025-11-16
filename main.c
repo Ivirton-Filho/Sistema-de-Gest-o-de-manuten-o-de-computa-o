@@ -159,7 +159,7 @@ int main (void){
 
 
     while(var_auxiliador_loop_menu == 1){
-        printf("1-Acessar área de cadastro\n2-Status de concerto\n3-Estoque de peças\n4-Registro\n5-Sair\nSelecione uma opção: ");
+        printf("1-Acessar área de cadastro\n2-Status de concerto\n3-Estoque de peças\n4-Sair\nSelecione uma opção: ");
         scanf("%d", &var_auxiliador_menu);
 
         switch (var_auxiliador_menu){
@@ -176,11 +176,7 @@ int main (void){
                 salvar_aqr_pecas();
                 continue;
 
-            case 4:
-                arquivo();
-                continue;
-
-            case 5: //caso o user queria sair deverar digitar "S" que será guardado em uma var auxiliar.
+            case 4: //caso o user queria sair deverar digitar "S" que será guardado em uma var auxiliar.
                 printf("Certeza que deseja sair?(S/N)\n");
                 scanf("%s", &var_auxiliador_escolha_continuar);
                 //Se a var for "S" OU "s" a variavel do loop while recebe 0 parando o loop.
